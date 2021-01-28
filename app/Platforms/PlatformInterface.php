@@ -6,5 +6,8 @@ namespace App\Platforms;
 
 interface PlatformInterface
 {
-    public function sendEmail($payload);
+    public static function sendEmail($payload);
+    public static function buildTemplate($payload);
+    public static function initConnectionClient();
+
 }

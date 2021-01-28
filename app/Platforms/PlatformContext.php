@@ -6,22 +6,15 @@ namespace App\Platforms;
 
 class PlatformContext
 {
-    private $strategy = NULL;
-
-    public function __construct($platform_name)
+    public function sendContextEmail($platform_name, $payload)
     {
         switch ($platform_name) {
             case env('MAIL_JET_SERVICE'):
-                $this->strategy = new MailjetPlatform();
+                MailjetPlatform::sendEmail($payload);
                 break;
             case env('SEND_GRID_SERVICE'):
-                $this->strategy = new SendGridPlatform();
+                SendGridPlatform::sendEmail($payload);
                 break;
         }
-    }
-
-    public function sendContextEmail($payload)
-    {
-        $this->strategy->sendEmail($payload);
     }
 }

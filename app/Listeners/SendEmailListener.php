@@ -9,15 +9,9 @@ use Illuminate\Queue\InteractsWithQueue;
 
 class SendEmailListener implements ShouldQueue
 {
-    /**
-     * Handle the event.
-     *
-     * @param SendEmailEvent $event
-     * @return void
-     */
     public function handle(SendEmailEvent $event)
     {
-        $platformContext = new PlatformContext(env('DEFAULT_EMAIL_SERVICE'));
-        $platformContext->sendContextEmail($event->payload);
+        $platformContext = new PlatformContext();
+        $platformContext->sendContextEmail(env('DEFAULT_EMAIL_SERVICE'), $event->payload);
     }
 }
