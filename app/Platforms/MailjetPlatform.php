@@ -25,19 +25,14 @@ class MailjetPlatform implements PlatformInterface
             'Messages' => [
                 [
                     'From' => [
-                        'Email' => "",
-                        'Name' => "TestEmail"
+                        'Email' => env('MAIL_FROM_ADDRESS'),
+                        'Name' => env('MAIL_FROM_NAME')
                     ],
-                    'To' => [
-                        [
-                            'Email' => "",
-                        ]
-                    ],
-                    'Subject' => "Test",
-                    'TextPart' => "Testeen"
+                    'To' => $payload["to"],
+                    'Subject' => $payload["subject"],
+                    'TextPart' => $payload["message"]
                 ]
             ]
-
         ];
     }
 

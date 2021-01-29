@@ -25,6 +25,8 @@ class SendEmailRequest extends FormRequest
     {
         return [
             'to' => 'required|array',
+            'to.*.Email' => 'required',
+            'to.*.Name' => 'string',
             'message' => 'required',
             'subject' => 'required'
         ];
