@@ -16,7 +16,8 @@
         "laravel/tinker": "^2.5",
         "mailjet/laravel-mailjet": "^2.1",
         "sendgrid/sendgrid": "~7",
-        "vladimir-yuldashev/laravel-queue-rabbitmq": "^11.1"
+        "vladimir-yuldashev/laravel-queue-rabbitmq": "^11.1",
+        "prettus/l5-repository": "^2.7"
     },
     "require-dev": {
         "facade/ignition": "^2.5",
