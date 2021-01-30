@@ -73,10 +73,7 @@ class SendEmails extends Command
 
     public function buildRequestPayload($to, $subject, $message)
     {
-        $emailPayload = new Payload();
-        $emailPayload->set_toAddress($to);
-        $emailPayload->set_subject($subject);
-        $emailPayload->set_message($message);
+        $emailPayload = new Payload($to, $subject, $message);
         return $emailPayload;
     }
 }

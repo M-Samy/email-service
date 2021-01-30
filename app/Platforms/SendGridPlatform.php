@@ -24,19 +24,17 @@ class SendGridPlatform implements PlatformInterface
     {
         $email = new Mail();
         $email->setFrom(env('MAIL_FROM_ADDRESS'), env('MAIL_FROM_NAME'));
-        $email->setSubject($payload["subject"]);
+        $email->setSubject($payload->get_subject());
         $toAddresses = [];
 
-        foreach ($payload["to"] as $toAddress) {
-            $userName = $toAddress['Name'];
-            $userAddress = $toAddress['Email'];
-            $toAddresses[$userAddress] = $userName;
+        foreach ($payload->get_toAddress() as $toAddress) {
+            array_push($toAddresses, array("Email" => $toAddress));
         }
 
         $email->addTos($toAddresses);
-        $email->addContent("text/plain", "and easy to do anywhere, even with PHP");
+        $email->addContent("text/plain", $payload->get_message());
         $email->addContent(
-            "text/html", "<h3>Dears, welcome to SendGrid!</h3><br />" . $payload["message"] . ""
+            "text/html", "<h3>Dears, welcome to SendGrid!</h3><br />" . $payload->get_message() . ""
         );
 
         return $email;

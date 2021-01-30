@@ -8,6 +8,15 @@ class Payload
     private $toAddresses;
     private $subject;
     private $message;
+    private $markdown;
+
+    public function __construct($toAddresses, $subject, $message, $markdown = null)
+    {
+        $this->toAddresses = $toAddresses;
+        $this->subject = $subject;
+        $this->message = $message;
+        $this->markdown = $markdown;
+    }
 
     public function get_toAddress()
     {
@@ -37,5 +46,15 @@ class Payload
     public function set_message($message)
     {
         $this->message = $message;
+    }
+
+    public function get_markdown()
+    {
+        return $this->message;
+    }
+
+    public function set_markdown($markdown)
+    {
+        $this->markdown = $markdown;
     }
 }

@@ -21,6 +21,12 @@ class MailjetPlatform implements PlatformInterface
 
     public static function buildTemplate($payload)
     {
+        $toAddresses = [];
+
+        foreach ($payload->get_toAddress() as $toAddress) {
+            array_push($toAddresses, array("Email" => $toAddress));
+        }
+
         return [
             'Messages' => [
                 [
@@ -28,10 +34,10 @@ class MailjetPlatform implements PlatformInterface
                         'Email' => env('MAIL_FROM_ADDRESS'),
                         'Name' => env('MAIL_FROM_NAME')
                     ],
-                    'To' => $payload["to"],
-                    'Subject' => $payload["subject"],
-                    'TextPart' => $payload["message"],
-                    'HTMLPart' => "<h3>Dears, welcome to Mailjet!</h3><br />" . $payload["message"] . "",
+                    'To' => $toAddresses,
+                    'Subject' => $payload->get_subject(),
+                    'TextPart' => $payload->get_message(),
+                    'HTMLPart' => "<h3>Dears, welcome to Mailjet!</h3><br />" . $payload->get_message() . "",
                 ]
             ]
         ];

@@ -17,18 +17,21 @@ class CreateEmailLogListener implements ShouldQueue
 
     public function handle(CreateEmailLogEvent $event)
     {
-        $emailData = $this->mapEmailData($event->payload, $event->platformStatus);
-        $this->emailDep->createEmail($emailData);
+        $emailMappedData = $this->mapEmailData($event->payload, $event->platformStatus);
+        $this->emailDep->createEmail($emailMappedData);
     }
 
     public function mapEmailData($payload, $platformStatus)
     {
         $toAddresses = [];
-        foreach ($payload["to"] as $to) {
-            array_push($toAddresses, $to["Email"]);
+        $mappedData = [];
+        foreach ($payload->get_toAddress() as $to) {
+            array_push($toAddresses, $to);
         }
-        $payload["platform"] = $platformStatus;
-        $payload["to"] = $toAddresses;
-        return $payload;
+        $mappedData["to"] = $toAddresses;
+        $mappedData["subject"] = $payload->get_subject();
+        $mappedData["message"] = $payload->get_message();
+        $mappedData["platform"] = $platformStatus;
+        return $mappedData;
     }
 }
