@@ -15,8 +15,8 @@ class MailjetPlatform implements PlatformInterface
     {
         self::initConnectionClient();
         $template = self::buildTemplate($payload);
-        $response = self::$client->post(Resources::$Email, ['body' => $template]);;
-        $response->success() && dd($response->getData());
+        $response = self::$client->post(Resources::$Email, ['body' => $template]);
+        return $response->success() ? true : false;
     }
 
     public static function buildTemplate($payload)
@@ -30,7 +30,8 @@ class MailjetPlatform implements PlatformInterface
                     ],
                     'To' => $payload["to"],
                     'Subject' => $payload["subject"],
-                    'TextPart' => $payload["message"]
+                    'TextPart' => $payload["message"],
+                    'HTMLPart' => "<h3>Dears, welcome to Mailjet!</h3><br />".$payload["message"]."",
                 ]
             ]
         ];

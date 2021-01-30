@@ -15,6 +15,7 @@
         "laravel/framework": "^8.12",
         "laravel/tinker": "^2.5",
         "mailjet/laravel-mailjet": "^2.1",
+        "sendgrid/sendgrid": "~7",
         "vladimir-yuldashev/laravel-queue-rabbitmq": "^11.1"
     },
     "require-dev": {

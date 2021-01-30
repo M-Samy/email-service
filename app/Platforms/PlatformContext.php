@@ -10,11 +10,15 @@ class PlatformContext
     {
         switch ($platform_name) {
             case env('MAIL_JET_SERVICE'):
-                MailjetPlatform::sendEmail($payload);
+                $responseStatus = MailjetPlatform::sendEmail($payload);
                 break;
             case env('SEND_GRID_SERVICE'):
-                SendGridPlatform::sendEmail($payload);
+                $responseStatus = SendGridPlatform::sendEmail($payload);
                 break;
+            default:
+                $responseStatus = Null;
         }
+
+        return $responseStatus;
     }
 }

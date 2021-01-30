@@ -20,4 +20,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 
-Route::post('/email/send', [EmailController::class, 'send'])->name('email.send');
+Route::post('/send', [EmailController::class, 'send'])->name('email.send');
+Route::get('/batch', [EmailController::class, 'batch'])->name('email.batch');
