@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Events\SendEmailEvent;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SendEmailRequest;
+use App\Http\Resources\Emails\BatchEmailResponse;
 use App\Jobs\SendMails;
 use Illuminate\Support\Facades\Bus;
 
@@ -23,7 +24,7 @@ class EmailController extends Controller
             new SendMails($payload)
         ])->allowFailures()->dispatch();
 
-        return $batch->id;
+        return new BatchEmailResponse($batch);
     }
 
     public function batch()

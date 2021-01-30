@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use App\Events\CreateEmailLogEvent;
 use App\Platforms\PlatformContext;
 use Illuminate\Bus\Batchable;
 use Illuminate\Bus\Queueable;
@@ -33,10 +34,25 @@ class SendMails implements ShouldQueue
      */
     public function handle()
     {
+        $platform = env('DEFAULT_EMAIL_SERVICE');
+
         $platformContext = new PlatformContext();
-        $responseStatus = $platformContext->sendContextEmail(env('DEFAULT_EMAIL_SERVICE'), $this->payload);
+        $responseStatus = $platformContext->sendContextEmail($platform, $this->payload);
+
+        $platformStatus = [
+            $platform => $responseStatus
+        ];
+
         if (!$responseStatus) {
-            print_r("Exception occurred");
+            $platform = env('FALLBACK_EMAIL_SERVICE');
+            $responseStatus = $platformContext->sendContextEmail($platform, $this->payload);
+
+            $platformStatus = [
+                $platform => $responseStatus
+            ];
         }
+
+        event(new CreateEmailLogEvent($this->payload, $platformStatus));
+
     }
 }

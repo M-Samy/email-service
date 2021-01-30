@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use App\Events\CreateEmailLogEvent;
 use App\Events\SendEmailEvent;
+use App\Listeners\CreateEmailLogListener;
 use App\Listeners\SendEmailListener;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
@@ -16,6 +18,9 @@ class EventServiceProvider extends ServiceProvider
     protected $listen = [
         SendEmailEvent::class => [
             SendEmailListener::class,
+        ],
+        CreateEmailLogEvent::class => [
+            CreateEmailLogListener::class,
         ],
     ];
 

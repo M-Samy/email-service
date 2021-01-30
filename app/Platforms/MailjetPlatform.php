@@ -31,7 +31,7 @@ class MailjetPlatform implements PlatformInterface
                     'To' => $payload["to"],
                     'Subject' => $payload["subject"],
                     'TextPart' => $payload["message"],
-                    'HTMLPart' => "<h3>Dears, welcome to Mailjet!</h3><br />".$payload["message"]."",
+                    'HTMLPart' => "<h3>Dears, welcome to Mailjet!</h3><br />" . $payload["message"] . "",
                 ]
             ]
         ];

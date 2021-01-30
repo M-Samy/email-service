@@ -5,13 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
-use Prettus\Repository\Contracts\Transformable;
-use Prettus\Repository\Traits\TransformableTrait;
 
-class Email extends Model implements Transformable
+class Email extends Model
 {
-    use TransformableTrait, HasFactory, Notifiable;
+    use HasFactory, Notifiable;
 
     protected $fillable = ['to', 'subject', 'message', 'markdown', 'platform'];
+
+    protected $casts = [
+        'to' => 'array',
+        'platform' => 'array'
+    ];
 
 }

@@ -8,19 +8,22 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class SendEmailEvent implements ShouldQueue
+class CreateEmailLogEvent implements ShouldQueue
 {
     use Dispatchable, InteractsWithSockets, SerializesModels, Queueable;
 
     public $payload;
+    public $platformStatus;
 
     /**
      * Create a new event instance.
      *
      * @param $payload
+     * @param $platformStatus
      */
-    public function __construct($payload)
+    public function __construct($payload, $platformStatus)
     {
         $this->payload = $payload;
+        $this->platformStatus = $platformStatus;
     }
 }

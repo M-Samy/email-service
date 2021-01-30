@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Platforms\MailjetPlatform;
 use App\Platforms\SendGridPlatform;
+use App\Repositories\EmailRepository;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -22,6 +23,8 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton(SendGridPlatform::class, function () {
             return new SendGridPlatform();
         });
+
+        $this->app->singleton(EmailRepository::class, EmailRepository::class);
     }
 
     /**

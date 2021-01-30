@@ -2,14 +2,23 @@
 
 namespace App\Repositories;
 
-use Prettus\Repository\Contracts\RepositoryInterface;
+use App\Models\Email;
+use Prettus\Repository\Eloquent\BaseRepository;
 
-/**
- * Interface EmailRepository.
- *
- * @package namespace App\Repositories;
- */
-interface EmailRepository extends RepositoryInterface
+class EmailRepository extends BaseRepository
 {
-    //
+    /**
+     * Specify Model class name.
+     *
+     * @return string
+     */
+    public function model()
+    {
+        return Email::class;
+    }
+
+    public function createEmail(array $fields)
+    {
+        return $this->create($fields);
+    }
 }
