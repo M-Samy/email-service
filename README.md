@@ -1,9 +1,9 @@
 # Email-service
-Simple [PHP, Laravel](https://laravel.com/) email service using Laravel8,
-used to send emails to multiple recipients through multiple external email platforms like Mailjet and SendGrid.
+Simple [PHP, Laravel](https://laravel.com/) email service using Laravel 8,
+used to send emails asynchronously to multiple recipients through multiple external email platforms like Mailjet and SendGrid.
 ## About
 ```
-    * A [POST] api send email for multiple recipients.
+    * A [POST] api send emails for multiple recipients.
     * Simple service support service container to be simple as possible.
     * Also, has a simple integration with multiple email platforms.
     * Also, application has a simple queuing technique to send emails asynchronously.
@@ -46,8 +46,8 @@ These instructions will make the project up and running on your local machine fo
 * PhpMyAdmin :8183
 * mysql :8002
 ## Built With
-* [PHP7](https://www.php.net/)
-* [Laravel8](https://laravel.com/docs/8.12/)
+* [PHP 7](https://www.php.net/)
+* [Laravel 8](https://laravel.com/docs/8.12/)
 * [Nginx](https://www.nginx.com/)
 * [Docker](https://docs.docker.com/)
 * [Docker Compose](https://docs.docker.com/compose/)
@@ -94,11 +94,13 @@ These instructions will make the project up and running on your local machine fo
 * Sending emails asynchronously.
 * Scalable system design.
 * Using Events, Listeners, Jobs and Job Batching laravel features.
+* Email container has two different methods to send mails "Events and Listeners" and "Job Batching"
 * Apply request validation.
 * Apply fallback platform in case the default platform unavailable
 * Implement a simple asynchronously technique.
 * Implement simple integration with Mailjet and SendGrid "Implement only used functionality".
 * Apply simple logging for each bulk emails and the batch status for each platform.
+* Write some simple test cases.
 ## Applied design patterns
 * Factory Design Pattern.
 * Strategy Design Pattern.
