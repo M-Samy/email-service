@@ -10,6 +10,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Config;
 
 class SendMails implements ShouldQueue
 {
@@ -34,7 +35,7 @@ class SendMails implements ShouldQueue
      */
     public function handle()
     {
-        $platform = env('DEFAULT_EMAIL_SERVICE');
+        $platform = Config::get("constants.options.default_email_service");
 
         $platformContext = new PlatformContext();
         $responseStatus = $platformContext->sendContextEmail($platform, $this->payload);
@@ -42,7 +43,7 @@ class SendMails implements ShouldQueue
         $platformStatus[$platform] = $responseStatus;
 
         if (!$responseStatus) {
-            $platform = env('FALLBACK_EMAIL_SERVICE');
+            $platform = Config::get("constants.options.fallback_email_service");
             $responseStatus = $platformContext->sendContextEmail($platform, $this->payload);
             $platformStatus[$platform] = $responseStatus;
         }

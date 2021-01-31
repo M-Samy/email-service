@@ -4,6 +4,7 @@
 namespace App\Platforms;
 
 
+use Illuminate\Support\Facades\Config;
 use SendGrid;
 use SendGrid\Mail\Mail;
 use Symfony\Component\HttpFoundation\Response;
@@ -12,6 +13,11 @@ use Exception;
 class SendGridPlatform implements PlatformInterface
 {
     public static $client;
+
+    public static function getPlatformName()
+    {
+        return Config::get("constants.platforms.sendgrid_platform");
+    }
 
     public static function sendEmail($payload)
     {
@@ -28,7 +34,10 @@ class SendGridPlatform implements PlatformInterface
     public static function buildTemplate($payload)
     {
         $email = new Mail();
-        $email->setFrom(env('MAIL_FROM_ADDRESS'), env('MAIL_FROM_NAME'));
+        $email->setFrom(
+            Config::get("constants.email_options.mail_from_address"),
+            Config::get("constants.email_options.mail_from_name")
+        );
         $email->setSubject($payload->get_subject());
         $toAddresses = [];
 
@@ -47,6 +56,6 @@ class SendGridPlatform implements PlatformInterface
 
     public static function initConnectionClient()
     {
-        self::$client = new SendGrid(getenv('SENDGRID_API_KEY'));
+        self::$client = new SendGrid(Config::get("constants.platforms.integration_keys.sendgrid_api_key"));
     }
 }

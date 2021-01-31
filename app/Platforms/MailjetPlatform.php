@@ -4,6 +4,7 @@
 namespace App\Platforms;
 
 
+use Illuminate\Support\Facades\Config;
 use Mailjet\Client;
 use Mailjet\Resources;
 use Exception;
@@ -11,6 +12,11 @@ use Exception;
 class MailjetPlatform implements PlatformInterface
 {
     public static $client;
+
+    public static function getPlatformName()
+    {
+        return Config::get("constants.platforms.mailjet_platform");
+    }
 
     public static function sendEmail($payload)
     {
@@ -36,8 +42,8 @@ class MailjetPlatform implements PlatformInterface
             'Messages' => [
                 [
                     'From' => [
-                        'Email' => env('MAIL_FROM_ADDRESS'),
-                        'Name' => env('MAIL_FROM_NAME')
+                        'Email' => Config::get("constants.email_options.mail_from_address"),
+                        'Name' => Config::get("constants.email_options.mail_from_name")
                     ],
                     'To' => $toAddresses,
                     'Subject' => $payload->get_subject(),
@@ -51,8 +57,8 @@ class MailjetPlatform implements PlatformInterface
     public static function initConnectionClient()
     {
         self::$client = new Client(
-            env('MAILJET_APIKEY'),
-            env('MAILJET_APISECRET'),
+            Config::get("constants.platforms.integration_keys.mailjet_api_key"),
+            Config::get("constants.platforms.integration_keys.mailjet_api_secret"),
             true,
             ['version' => 'v3.1']
         );
