@@ -5,6 +5,7 @@ namespace Tests\Unit;
 use App\Http\Resources\Emails\Payload;
 use App\Platforms\PlatformContext;
 use Illuminate\Support\Facades\Config;
+use Symfony\Component\HttpFoundation\Response;
 use Tests\TestCase;
 
 class EmailTest extends TestCase
@@ -41,6 +42,26 @@ class EmailTest extends TestCase
         );
 
         $this->assertTrue($responseStatus);
+    }
+
+    /**
+     * Test sending endpoint.
+     *
+     * @return void
+     */
+    public function testSendEmailEndpoint()
+    {
+        $response = $this->post('/api/send',
+            [
+                "to" => ["mahmoudsamy18@gmail.com"],
+                "subject" => "example subject",
+                "message" => "example message"
+            ]
+        );
+
+        $response
+            ->assertStatus(Response::HTTP_OK)
+            ->assertJson(['data' => true]);
     }
 
     /**
