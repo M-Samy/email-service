@@ -1,6 +1,8 @@
 # Email-service
-Simple [PHP, Laravel](https://laravel.com/) email service using Laravel 8,
+- Simple [PHP, Laravel](https://laravel.com/) email service using Laravel 8,
 used to send emails asynchronously to multiple recipients through multiple external email platforms like Mailjet and SendGrid.
+- Here we use two email external platforms the first used as a default platform and
+ second platform used as a fallback.
 ## About
 ```
     * A [POST] api send emails for multiple recipients.
@@ -19,6 +21,11 @@ These instructions will make the project up and running on your local machine fo
 ```
     $ cd email-service
 ```
+* Copy .env.example to .env file.
+```
+    $ cp .env.example .env
+```
+* Update apps keys into .env file used into integration with external platforms.
 * Run docker-compose.yml file.
 ```
     $ docker-compose up -d --build
@@ -113,3 +120,5 @@ These instructions will make the project up and running on your local machine fo
 * Integrate with other multiple email platforms.
 * Apply a simple web interface helps us into sending emails.
 * We can split app into two services "Endpoint and Consumer service" to reduce coupling between them and communicate using message communication or event driven communication.
+## Service endpoints postman collection sample
+* [Email-Service](https://www.getpostman.com/collections/e372c3c9b532827d7cd3)
