@@ -39,17 +39,12 @@ class SendMails implements ShouldQueue
         $platformContext = new PlatformContext();
         $responseStatus = $platformContext->sendContextEmail($platform, $this->payload);
 
-        $platformStatus = [
-            $platform => $responseStatus
-        ];
+        $platformStatus[$platform] = $responseStatus;
 
         if (!$responseStatus) {
             $platform = env('FALLBACK_EMAIL_SERVICE');
             $responseStatus = $platformContext->sendContextEmail($platform, $this->payload);
-
-            $platformStatus = [
-                $platform => $responseStatus
-            ];
+            $platformStatus[$platform] = $responseStatus;
         }
 
         event(new CreateEmailLogEvent($this->payload, $platformStatus));

@@ -6,6 +6,7 @@ namespace App\Platforms;
 
 use Mailjet\Client;
 use Mailjet\Resources;
+use Exception;
 
 class MailjetPlatform implements PlatformInterface
 {
@@ -13,10 +14,14 @@ class MailjetPlatform implements PlatformInterface
 
     public static function sendEmail($payload)
     {
-        self::initConnectionClient();
-        $template = self::buildTemplate($payload);
-        $response = self::$client->post(Resources::$Email, ['body' => $template]);
-        return $response->success() ? true : false;
+        try {
+            self::initConnectionClient();
+            $template = self::buildTemplate($payload);
+            $response = self::$client->post(Resources::$Email, ['body' => $template]);
+            return $response->success() ? true : false;
+        } catch (Exception $exception) {
+            return false;
+        }
     }
 
     public static function buildTemplate($payload)

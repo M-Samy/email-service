@@ -7,6 +7,7 @@ namespace App\Platforms;
 use SendGrid;
 use SendGrid\Mail\Mail;
 use Symfony\Component\HttpFoundation\Response;
+use Exception;
 
 class SendGridPlatform implements PlatformInterface
 {
@@ -14,10 +15,15 @@ class SendGridPlatform implements PlatformInterface
 
     public static function sendEmail($payload)
     {
-        self::initConnectionClient();
-        $template = self::buildTemplate($payload);
-        $response = self::$client->send($template);
-        return $response->statusCode() == Response::HTTP_ACCEPTED ? true : false;
+        try {
+            self::initConnectionClient();
+            $template = self::buildTemplate($payload);
+            $response = self::$client->send($template);
+            return $response->statusCode() == Response::HTTP_ACCEPTED ? true : false;
+        } catch (Exception $exception) {
+            var_dump($exception->getMessage());
+            return false;
+        }
     }
 
     public static function buildTemplate($payload)
@@ -28,7 +34,7 @@ class SendGridPlatform implements PlatformInterface
         $toAddresses = [];
 
         foreach ($payload->get_toAddress() as $toAddress) {
-            array_push($toAddresses, array("Email" => $toAddress));
+            $toAddresses[$toAddress] = "";
         }
 
         $email->addTos($toAddresses);
