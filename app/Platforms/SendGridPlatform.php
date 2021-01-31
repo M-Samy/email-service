@@ -14,7 +14,7 @@ class SendGridPlatform implements PlatformInterface
 {
     public static $client;
 
-    public static function getPlatformName()
+    public function getPlatformName()
     {
         return Config::get("constants.platforms.sendgrid_platform");
     }

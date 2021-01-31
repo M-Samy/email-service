@@ -54,10 +54,14 @@ These instructions will make the project up and running on your local machine fo
 * mysql :8002
 ## Built With
 * [PHP 7](https://www.php.net/)
-* [Laravel 8](https://laravel.com/docs/8.12/)
+* [Laravel 8](https://laravel.com/docs/8.x)
 * [Nginx](https://www.nginx.com/)
 * [Docker](https://docs.docker.com/)
 * [Docker Compose](https://docs.docker.com/compose/)
+## Running Service Tests
+```
+   $ docker-compose run --rm artisan test --env=testing
+```
 ## Calling Endpoint
 * API Endpoint
 ```

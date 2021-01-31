@@ -13,7 +13,7 @@ class MailjetPlatform implements PlatformInterface
 {
     public static $client;
 
-    public static function getPlatformName()
+    public function getPlatformName()
     {
         return Config::get("constants.platforms.mailjet_platform");
     }
@@ -62,5 +62,7 @@ class MailjetPlatform implements PlatformInterface
             true,
             ['version' => 'v3.1']
         );
+
+//        return self::$client;
     }
 }
