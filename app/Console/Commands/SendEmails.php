@@ -71,6 +71,7 @@ class SendEmails extends Command
             'subject' => $subject
         ], [
             'to' => 'required|array|min:1',
+            'to.*' => 'email',
             'message' => 'required',
             'subject' => 'required'
         ]);

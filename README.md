@@ -93,6 +93,17 @@ These instructions will make the project up and running on your local machine fo
 ```
     $ docker-compose run --rm artisan emails:send
 ```
+* Response sample
+```
+     Email recipients:
+     > example1@example.com, example2@example.com
+    
+     Email subject:
+     > example subject
+    
+     Email message:
+     > example message
+```
 ## Features
 * Service container.
 * Apply adequate design patterns.

@@ -53,7 +53,7 @@ class EmailTest extends TestCase
     {
         $response = $this->post('/api/send',
             [
-                "to" => ["mahmoudsamy18@gmail.com"],
+                "to" => ["example@example.com"],
                 "subject" => "example subject",
                 "message" => "example message"
             ]
