@@ -3,6 +3,7 @@ return [
     'platforms' => [
         'mailjet_platform' => 'MailJet',
         'sendgrid_platform' => 'SendGrid',
+        'un_supported_platform' => 'un supported',
         'integration_keys' => [
             'sendgrid_api_key' => env('SENDGRID_API_KEY'),
             'mailjet_api_key' => env('MAILJET_APIKEY'),
