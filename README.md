@@ -70,16 +70,7 @@ These instructions will make the project up and running on your local machine fo
 * Request Body
 ```
     {
-        "to": [
-            {
-                "Email": "example1@example.com",
-                "Name": "Example1"
-            },
-            {
-                "Email": "example2@example.com",
-                "Name": "Example2"
-            }
-        ],
+        "to": ["example1@example.com", "example2@example.com"],
         "subject": "test example",
         "message": "test example" 
     }
@@ -89,10 +80,14 @@ These instructions will make the project up and running on your local machine fo
     {
         "data": {
             "status": true,
-            "batch_id": "929d21a5-e6ed-4664-826f-2f528c947d5c",
+            "batch_id": "***-***",
             "total_jobs": 1
         }
     }
+```
+## Run console command
+```
+    $ docker-compose run --rm artisan emails:send
 ```
 ## Features
 * Service container.

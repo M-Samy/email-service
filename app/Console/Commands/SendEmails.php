@@ -3,7 +3,9 @@
 namespace App\Console\Commands;
 
 use App\Http\Resources\Emails\Payload;
+use App\Jobs\SendMails;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Bus;
 use Illuminate\Support\Facades\Validator;
 
 class SendEmails extends Command
@@ -35,7 +37,6 @@ class SendEmails extends Command
     /**
      * Execute the console command.
      *
-     * @return int
      */
     public function handle()
     {
@@ -43,7 +44,9 @@ class SendEmails extends Command
         $subject = $this->ask('Email subject');
         $message = $this->ask('Email message');
 
-        $validationErrors = $this->requestValidation($to, $subject, $message);
+        $toAddresses = explode(",", $to);
+
+        $validationErrors = $this->requestValidation($toAddresses, $subject, $message);
 
         if (count($validationErrors)) {
             $this->info("Email request is invalid");
@@ -53,7 +56,11 @@ class SendEmails extends Command
             }
         }
 
-        $emailRequestPayload = $this->buildRequestPayload($to, $subject, $message);
+        $emailRequestPayload = $this->buildRequestPayload($toAddresses, $subject, $message);
+
+        Bus::batch([
+            new SendMails($emailRequestPayload)
+        ])->allowFailures()->dispatch();
     }
 
     public function requestValidation($to, $subject, $message)
@@ -63,9 +70,9 @@ class SendEmails extends Command
             'message' => $message,
             'subject' => $subject
         ], [
-            'to' => ['required', 'array'],
-            'message' => ['required'],
-            'subject' => ['required'],
+            'to' => 'required|array|min:1',
+            'message' => 'required',
+            'subject' => 'required'
         ]);
 
         return $validator->errors()->all();

@@ -21,7 +21,6 @@ class SendGridPlatform implements PlatformInterface
             $response = self::$client->send($template);
             return $response->statusCode() == Response::HTTP_ACCEPTED ? true : false;
         } catch (Exception $exception) {
-            var_dump($exception->getMessage());
             return false;
         }
     }
